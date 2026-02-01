@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B CRM - Contacts</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>Company CRM</h1>
+        </div>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="leads.html">Leads</a></li>
+                <li><a href="contacts.html" aria-current="page">Contacts</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+        <button id="menu-toggle" aria-label="Toggle menu">☰</button>
+        <div class="user-menu">
+            <button id="user-toggle">User Profile</button>
+            <div id="user-dropdown" class="hidden">
+                <a href="#">Profile</a>
+                <a href="#">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <aside id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="leads.html">Leads</a></li>
+                <li><a href="contacts.html" aria-current="page">Contacts</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section id="contacts">
+            <h2>Contact Management</h2>
+            <form id="contact-form">
+                <input type="text" id="contact-name" placeholder="Contact Name" required>
+                <input type="email" id="contact-email" placeholder="Contact Email" required>
+                <input type="text" id="contact-company" placeholder="Company" required>
+                <button type="submit">Add Contact</button>
+            </form>
+            <ul id="contact-list"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Generic B2B CRM. Built for scalability across companies.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
