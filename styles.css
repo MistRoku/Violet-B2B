@@ -329,4 +329,68 @@ footer {
         color: #ffcccc;
         margin-top: 16px;
     }
+
+    .edit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+}
+
+.edit-container section {
+    background-color: var(--secondary-color);
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    color: white;
+    width: 400px;
+    text-align: center;
+}
+
+.edit-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.edit-container input, .edit-container select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-container button {
+    padding: 8px 16px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-container button:hover {
+    background-color: #3a0066;
+}
+
+#edit-message, #forgot-message, #reset-message {
+    color: #ffcccc;
+    margin-top: 16px;
+}
+
+.edit-container a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.edit-container a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive for edit pages */
+@media (max-width: 480px) {
+    .edit-container section {
+        width: 90%;
+        padding: 16px;
+    }
 }
