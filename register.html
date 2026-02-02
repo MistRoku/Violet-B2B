@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioletCRM - Register Business</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="register-container">
+        <section id="register">
+            <h2>Register Your Business with VioletCRM</h2>
+            <form id="register-form">
+                <fieldset>
+                    <legend>Business Information</legend>
+                    <label for="company-name">Company Name:</label>
+                    <input type="text" id="company-name" name="company_name" required aria-describedby="company-help">
+                    <small id="company-help" class="help-text">Enter your official company name.</small>
+
+                    <label for="industry">Industry:</label>
+                    <select id="industry" name="industry" required>
+                        <option value="">Select Industry</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <label for="business-email">Business Email:</label>
+                    <input type="email" id="business-email" name="business_email" required aria-describedby="business-email-help">
+                    <small id="business-email-help" class="help-text">Use a professional email (e.g., info@company.com).</small>
+
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" required aria-describedby="phone-help">
+                    <small id="phone-help" class="help-text">Include country code (e.g., +1-123-456-7890).</small>
+
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" rows="3" required aria-describedby="address-help"></textarea>
+                    <small id="address-help" class="help-text">Full business address for verification.</small>
+
+                    <label for="website">Website (Optional):</label>
+                    <input type="url" id="website" name="website" placeholder="https://www.company.com">
+
+                    <label for="description">Business Description (Optional):</label>
+                    <textarea id="description" name="description" rows="3" placeholder="Brief description of your business"></textarea>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Account Details</legend>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required aria-describedby="username-help">
+                    <small id="username-help" class="help-text">Choose a unique username (3-20 characters).</small>
+
+                    <label for="personal-email">Personal Email:</label>
+                    <input type="email" id="personal-email" name="personal_email" required aria-describedby="personal-email-help">
+                    <small id="personal-email-help" class="help-text">Your personal email for account recovery.</small>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required aria-describedby="password-help">
+                    <small id="password-help" class="help-text">At least 8 characters, including uppercase, lowercase, and number.</small>
+
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm_password" required aria-describedby="confirm-help">
+                    <small id="confirm-help" class="help-text">Re-enter your password.</small>
+
+                    <label for="role">Role:</label>
+                    <select id="role" name="role" required>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <small class="help-text">Select 'Admin' if you need full access; otherwise, choose 'User'.</small>
+                </fieldset>
+
+                <button type="submit">Register Business</button>
+            </form>
+            <p id="register-message" aria-live="polite"></p>
+            <div class="register-links">
+                <a href="login.html">Already have an account? Login</a>
+                <a href="forgot_password.html">Forgot Password?</a>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
