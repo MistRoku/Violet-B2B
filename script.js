@@ -1,5 +1,5 @@
-// script.js - Full-Stack VioletCRM with PHP/MySQL
-document.addEventListener('DOMContentLoaded', async function () {
+// script.js - Complete Full-Stack VioletCRM with PHP/MySQL
+document.addEventListener('DOMContentLoaded', async function() {
     // Check session on load
     const response = await fetch('check_session.php');
     const sessionData = await response.json();
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Login form
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
-        loginForm.addEventListener('submit', async function (e) {
+        loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(loginForm);
             const response = await fetch('login.php', {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Logout
     const logoutBtn = document.getElementById('logout');
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', async function () {
+        logoutBtn.addEventListener('click', async function() {
             await fetch('logout.php');
             window.location.href = 'login.html';
         });
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
     if (menuToggle) {
-        menuToggle.addEventListener('click', function () {
+        menuToggle.addEventListener('click', function() {
             sidebar.classList.toggle('open');
         });
     }
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const userToggle = document.getElementById('user-toggle');
     const userDropdown = document.getElementById('user-dropdown');
     if (userToggle) {
-        userToggle.addEventListener('click', function () {
+        userToggle.addEventListener('click', function() {
             userDropdown.classList.toggle('hidden');
         });
     }
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     function addSearchFilter(listId, searchId, data) {
         const searchInput = document.getElementById(searchId);
         if (searchInput) {
-            searchInput.addEventListener('input', function () {
+            searchInput.addEventListener('input', function() {
                 const query = this.value.toLowerCase();
                 const list = document.getElementById(listId);
                 const items = list.querySelectorAll('li');
@@ -86,6 +86,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     function sendNotification(type, message) {
         console.log(`Sending ${type}: ${message}`);
         // For email: fetch('send_notification.php', { method: 'POST', body: JSON.stringify({ type, message }) });
+    }
+
+    function showNotification(message) {
+        const notifEl = document.getElementById('notifications');
+        if (notifEl) {
+            notifEl.textContent = message;
+            setTimeout(() => notifEl.textContent = '', 5000);
+        }
     }
 
     // Real-time updates
@@ -123,7 +131,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
         }
 
-        userForm.addEventListener('submit', async function (e) {
+        userForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = {
                 username: document.getElementById('user-username').value,
@@ -164,15 +172,218 @@ document.addEventListener('DOMContentLoaded', async function () {
             businessList.innerHTML = '';
             businesses.forEach(business => {
                 const li = document.createElement('li');
-                li.textContent = `${business.name} - ${business.industry}`;
+                li.textContent = `${business.name} - ${business.industry} - ${business.email} - ${business.phone}`;
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', async () => {
+                    await fetch('businesses.php', {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: business.id })
+                    });
+                    updateBusinessesDisplay();
+                });
+                li.appendChild(deleteBtn);
                 businessList.appendChild(li);
             });
-            const totalBusinessesEl = document.getElementById('total-businesses');
-            if (totalBusinessesEl) totalBusinessesEl.textContent = businesses.length;
-            const totalUsersEl = document.getElementById('total-users');
-            if (totalUsersEl) totalUsersEl.textContent = users.length;
         }
+
+        businessForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                name: document.getElementById('business-name').value,
+                industry: document.getElementById('business-industry').value,
+                email: document.getElementById('business-email').value,
+                phone: document.getElementById('business-phone').value
+            };
+            const error = validateForm(formData, {
+                name: { required: true },
+                industry: { required: true },
+                email: { required: true, email: true }
+            });
+            if (error) {
+                alert(error);
+                return;
+            }
+            await fetch('businesses.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            updateBusinessesDisplay();
+            businessForm.reset();
+            sendNotification('email', `Business ${formData.name} added.`);
+        });
+
         updateBusinessesDisplay();
+        addSearchFilter('business-list', 'business-search', []);
+    }
+
+    // Lead Management
+    const leadForm = document.getElementById('lead-form');
+    const leadList = document.getElementById('lead-list');
+    if (leadForm && leadList) {
+        async function updateLeadsDisplay() {
+            const response = await fetch('leads.php');
+            const leads = await response.json();
+            leadList.innerHTML = '';
+            leads.forEach(lead => {
+                const li = document.createElement('li');
+                li.textContent = `${lead.name} - ${lead.email} - ${lead.company}`;
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', async () => {
+                    await fetch('leads.php', {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: lead.id })
+                    });
+                    updateLeadsDisplay();
+                    updateDashboardStats();
+                });
+                li.appendChild(deleteBtn);
+                leadList.appendChild(li);
+            });
+        }
+
+        leadForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                name: document.getElementById('lead-name').value,
+                email: document.getElementById('lead-email').value,
+                company: document.getElementById('lead-company').value
+            };
+            const error = validateForm(formData, {
+                name: { required: true },
+                email: { required: true, email: true }
+            });
+            if (error) {
+                alert(error);
+                return;
+            }
+            await fetch('leads.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            updateLeadsDisplay();
+            leadForm.reset();
+            sendNotification('sms', `Lead ${formData.name} added.`);
+        });
+
+        updateLeadsDisplay();
+        addSearchFilter('lead-list', 'lead-search', []);
+    }
+
+    // Contact Management
+    const contactForm = document.getElementById('contact-form');
+    const contactList = document.getElementById('contact-list');
+    if (contactForm && contactList) {
+        async function updateContactsDisplay() {
+            const response = await fetch('contacts.php');
+            const contacts = await response.json();
+            contactList.innerHTML = '';
+            contacts.forEach(contact => {
+                const li = document.createElement('li');
+                li.textContent = `${contact.name} - ${contact.email} - ${contact.company}`;
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', async () => {
+                    await fetch('contacts.php', {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: contact.id })
+                    });
+                    updateContactsDisplay();
+                });
+                li.appendChild(deleteBtn);
+                contactList.appendChild(li);
+            });
+        }
+
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                name: document.getElementById('contact-name').value,
+                email: document.getElementById('contact-email').value,
+                company: document.getElementById('contact-company').value
+            };
+            const error = validateForm(formData, {
+                name: { required: true },
+                email: { required: true, email: true }
+            });
+            if (error) {
+                alert(error);
+                return;
+            }
+            await fetch('contacts.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            updateContactsDisplay();
+            contactForm.reset();
+            sendNotification('email', `Contact ${formData.name} added.`);
+        });
+
+        updateContactsDisplay();
+        addSearchFilter('contact-list', 'contact-search', []);
+    }
+
+    // Settings
+    const settingsForm = document.getElementById('settings-form');
+    const themeSelect = document.getElementById('theme');
+    if (settingsForm && themeSelect) {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        themeSelect.value = savedTheme;
+        applyTheme(savedTheme);
+
+        settingsForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const selectedTheme = themeSelect.value;
+            localStorage.setItem('theme', selectedTheme);
+            applyTheme(selectedTheme);
+        });
+    }
+
+    function applyTheme(theme) {
+        const root = document.documentElement;
+        if (theme === 'dark') {
+            root.style.setProperty('--primary-color', '#222');
+            root.style.setProperty('--secondary-color', '#333');
+            root.style.setProperty('--bg-color', '#111');
+            root.style.setProperty('--text-color', '#fff');
+        } else {
+            root.style.setProperty('--primary-color', '#8A2BE2');
+            root.style.setProperty('--secondary-color', '#000000');
+            root.style.setProperty('--bg-color', '#fff');
+            root.style.setProperty('--text-color', '#333');
+        }
+    }
+
+    // Update dashboard stats
+    async function updateDashboardStats() {
+        const [leadsRes, contactsRes, businessesRes, usersRes] = await Promise.all([
+            fetch('leads.php'),
+            fetch('contacts.php'),
+            fetch('businesses.php'),
+            fetch('users.php')
+        ]);
+        const leads = await leadsRes.json();
+        const contacts = await contactsRes.json();
+        const businesses = await businessesRes.json();
+        const users = await usersRes.json();
+
+        const totalLeadsEl = document.getElementById('total-leads');
+        if (totalLeadsEl) totalLeadsEl.textContent = leads.length;
+        const activeDealsEl = document.getElementById('active-deals');
+        if (activeDealsEl) activeDealsEl.textContent = 0; // Placeholder
+        const revenueEl = document.getElementById('revenue-forecast');
+        if (revenueEl) revenueEl.textContent = '$0'; // Placeholder
+        const totalBusinessesEl = document.getElementById('total-businesses');
+        if (totalBusinessesEl) totalBusinessesEl.textContent = businesses.length;
+        const totalUsersEl = document.getElementById('total-users');
+        if (totalUsersEl) totalUsersEl.textContent = users.length;
     }
 
     if (document.querySelector('#dashboard') || document.querySelector('#admin-dashboard')) {
@@ -191,19 +402,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // Notifications
-    function showNotification(message) {
-        const notifEl = document.getElementById('notifications');
-        if (notifEl) {
-            notifEl.textContent = message;
-            setTimeout(() => notifEl.textContent = '', 5000);
-        }
-    }
-
     if (document.querySelector('#dashboard') || document.querySelector('#admin-dashboard')) {
         const notifEl = document.createElement('p');
         notifEl.id = 'notifications';
         notifEl.style.color = 'yellow';
         document.querySelector('main').appendChild(notifEl);
     }
-});
 });
