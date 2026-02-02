@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VioletCRM - Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <main class="login-container">
         <section id="login">
             <h2>Login to VioletCRM</h2>
             <form id="login-form">
                 <label for="username">Username:</label>
-                <input type="text" id="username" required>
+                <input type="text" id="username" name="username" required aria-describedby="username-help">
+                <small id="username-help" class="help-text">Enter your registered username.</small>
+
                 <label for="password">Password:</label>
-                <input type="password" id="password" required>
+                <input type="password" id="password" name="password" required aria-describedby="password-help">
+                <small id="password-help" class="help-text">Enter your password.</small>
+
                 <label for="role">Role:</label>
-                <select id="role">
+                <select id="role" name="role" required>
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </select>
+
                 <button type="submit">Login</button>
             </form>
-            <p id="login-message"></p>
+            <p id="login-message" aria-live="polite"></p>
+            <div class="login-links">
+                <a href="forgot_password.html">Forgot Password?</a>
+                <a href="register.html">Register</a>
+            </div>
         </section>
     </main>
     <script src="script.js"></script>
 </body>
+</html>
+<script src="script.js"></script>
+</body>
+
 
 </html>
