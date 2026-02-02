@@ -627,5 +627,36 @@ if (menuToggle && sidebar) {
         notifEl.style.color = 'yellow';
         document.querySelector('main').appendChild(notifEl);
     }
-});
 
+    // Registration form
+const registerForm = document.getElementById('register-form');
+if (registerForm) {
+    registerForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(registerForm);
+        const password = formData.get('password');
+        const confirmPassword = formData.get('confirm_password');
+
+        // Additional validation
+        if (password !== confirmPassword) {
+            document.getElementById('register-message').textContent = 'Passwords do not match.';
+            return;
+        }
+        if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password)) {
+            document.getElementById('register-message').textContent = 'Password must be at least 8 characters with uppercase, lowercase, and number.';
+            return;
+        }
+
+        const response = await fetch('register.php', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        if (result.success) {
+            document.getElementById('register-message').textContent = 'Registration successful! Redirecting to login...';
+            setTimeout(() => window.location.href = 'login.html', 2000);
+        } else {
+            document.getElementById('register-message').textContent = result.message;
+        }
+    });
+}
