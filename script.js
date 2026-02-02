@@ -70,12 +70,15 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Mobile menu
     const menuToggle = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('open');
-        });
-    }
+const sidebar = document.getElementById('sidebar');
+if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+        console.log('Sidebar toggled:', sidebar.classList.contains('open')); // Debug log
+    });
+} else {
+    console.error('Menu toggle or sidebar not found'); // Error log
+}
 
     // User dropdown
     const userToggle = document.getElementById('user-toggle');
@@ -625,3 +628,4 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.querySelector('main').appendChild(notifEl);
     }
 });
+
