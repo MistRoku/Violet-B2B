@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioletCRM - Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>VioletCRM</h1>
+        </div>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="leads.html">Leads</a></li>
+                <li><a href="contacts.html">Contacts</a></li>
+                <li><a href="analytics.html" aria-current="page">Analytics</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+        <button id="menu-toggle" aria-label="Toggle menu">☰</button>
+        <div class="user-menu">
+            <button id="user-toggle">User Profile</button>
+            <div id="user-dropdown" class="hidden">
+                <a href="#">Profile</a>
+                <a href="#" id="logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <aside id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="leads.html">Leads</a></li>
+                <li><a href="contacts.html">Contacts</a></li>
+                <li><a href="analytics.html" aria-current="page">Analytics</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section id="analytics">
+            <h2>Analytics</h2>
+            <div class="chart-placeholder">
+                <p>Chart will load here (integrate Chart.js for bar/pie charts).</p>
+                <canvas id="analytics-chart" width="400" height="200"></canvas>
+            </div>
+            <div class="analytics-stats">
+                <div class="stat-card">
+                    <h3>Lead Conversion Rate</h3>
+                    <p id="conversion-rate">0%</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Average Deal Size</h3>
+                    <p id="avg-deal-size">$0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Monthly Growth</h3>
+                    <p id="monthly-growth">0%</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 VioletCRM. Built for scalability across companies.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
