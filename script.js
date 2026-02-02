@@ -1,4 +1,4 @@
-// script.js - Complete Full-Stack VioletCRM with PHP/MySQL
+// script.js - Complete Full-Stack VioletCRM with All Features
 document.addEventListener('DOMContentLoaded', async function() {
     // Check session on load
     const response = await fetch('check_session.php');
@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const isLoggedIn = sessionData.loggedIn;
     const userRole = sessionData.role;
 
-    if (!isLoggedIn && !window.location.pathname.includes('login.html')) {
+    if (!isLoggedIn && !window.location.pathname.includes('login.html') && !window.location.pathname.includes('forgot_password.html') && !window.location.pathname.includes('reset_password.html')) {
         window.location.href = 'login.html';
     }
 
@@ -26,6 +26,36 @@ document.addEventListener('DOMContentLoaded', async function() {
             } else {
                 document.getElementById('login-message').textContent = result.message;
             }
+        });
+    }
+
+    // Forgot password form
+    const forgotForm = document.getElementById('forgot-password-form');
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(forgotForm);
+            const response = await fetch('forgot_password.php', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            document.getElementById('forgot-message').textContent = result.message;
+        });
+    }
+
+    // Reset password form
+    const resetForm = document.getElementById('reset-password-form');
+    if (resetForm) {
+        resetForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(resetForm);
+            const response = await fetch('reset_password.php', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            document.getElementById('reset-message').textContent = result.success ? 'Password reset successful!' : 'Error resetting password.';
         });
     }
 
@@ -67,7 +97,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Search/Filter
-    function addSearchFilter(listId, searchId, data) {
+    function addSearchFilter(listId, searchId) {
         const searchInput = document.getElementById(searchId);
         if (searchInput) {
             searchInput.addEventListener('input', function() {
@@ -116,6 +146,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             users.forEach(user => {
                 const li = document.createElement('li');
                 li.textContent = `${user.username} - ${user.email} - ${user.role}`;
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => {
+                    window.location.href = `edit_user.html?id=${user.id}`;
+                });
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
                 deleteBtn.addEventListener('click', async () => {
@@ -126,6 +161,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     });
                     updateUsersDisplay();
                 });
+                li.appendChild(editBtn);
                 li.appendChild(deleteBtn);
                 userList.appendChild(li);
             });
@@ -159,7 +195,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
 
         updateUsersDisplay();
-        addSearchFilter('user-list', 'user-search', []);
+        addSearchFilter('user-list', 'user-search');
     }
 
     // Business Management (Admin)
@@ -173,6 +209,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             businesses.forEach(business => {
                 const li = document.createElement('li');
                 li.textContent = `${business.name} - ${business.industry} - ${business.email} - ${business.phone}`;
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => {
+                    window.location.href = `edit_business.html?id=${business.id}`;
+                });
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
                 deleteBtn.addEventListener('click', async () => {
@@ -183,6 +224,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     });
                     updateBusinessesDisplay();
                 });
+                li.appendChild(editBtn);
                 li.appendChild(deleteBtn);
                 businessList.appendChild(li);
             });
@@ -216,7 +258,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
 
         updateBusinessesDisplay();
-        addSearchFilter('business-list', 'business-search', []);
+        addSearchFilter('business-list', 'business-search');
     }
 
     // Lead Management
@@ -230,6 +272,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             leads.forEach(lead => {
                 const li = document.createElement('li');
                 li.textContent = `${lead.name} - ${lead.email} - ${lead.company}`;
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => {
+                    window.location.href = `edit_lead.html?id=${lead.id}`;
+                });
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
                 deleteBtn.addEventListener('click', async () => {
@@ -241,6 +288,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     updateLeadsDisplay();
                     updateDashboardStats();
                 });
+                li.appendChild(editBtn);
                 li.appendChild(deleteBtn);
                 leadList.appendChild(li);
             });
@@ -272,7 +320,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
 
         updateLeadsDisplay();
-        addSearchFilter('lead-list', 'lead-search', []);
+        addSearchFilter('lead-list', 'lead-search');
     }
 
     // Contact Management
@@ -286,6 +334,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             contacts.forEach(contact => {
                 const li = document.createElement('li');
                 li.textContent = `${contact.name} - ${contact.email} - ${contact.company}`;
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => {
+                    window.location.href = `edit_contact.html?id=${contact.id}`;
+                });
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
                 deleteBtn.addEventListener('click', async () => {
@@ -327,7 +380,170 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
 
         updateContactsDisplay();
-        addSearchFilter('contact-list', 'contact-search', []);
+        addSearchFilter('contact-list', 'contact-search');
+    }
+
+    // Edit Lead Form
+    const editLeadForm = document.getElementById('edit-lead-form');
+    if (editLeadForm) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        if (id) {
+            const response = await fetch(`leads.php?id=${id}`);
+            const lead = await response.json();
+            document.getElementById('lead-id').value = lead.id;
+            document.getElementById('edit-lead-name').value = lead.name;
+            document.getElementById('edit-lead-email').value = lead.email;
+            document.getElementById('edit-lead-company').value = lead.company;
+        }
+
+        editLeadForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                id: document.getElementById('lead-id').value,
+                name: document.getElementById('edit-lead-name').value,
+                email: document.getElementById('edit-lead-email').value,
+                company: document.getElementById('edit-lead-company').value
+            };
+            const error = validateForm(formData, {
+                name: { required: true },
+                email: { required: true, email: true }
+            });
+            if (error) {
+                alert(error);
+                return;
+            }
+            await fetch('edit_lead.php', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            document.getElementById('edit-message').textContent = 'Lead updated!';
+            setTimeout(() => window.location.href = 'leads.html', 1000);
+        });
+    }
+
+    // Edit Contact Form (Similar to edit lead)
+    const editContactForm = document.getElementById('edit-contact-form');
+    if (editContactForm) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        if (id) {
+            const response = await fetch(`contacts.php?id=${id}`);
+            const contact = await response.json();
+            document.getElementById('contact-id').value = contact.id;
+            document.getElementById('edit-contact-name').value = contact.name;
+            document.getElementById('edit-contact-email').value = contact.email;
+            document.getElementById('edit-contact-company').value = contact.company;
+        }
+
+        editContactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                id: document.getElementById('contact-id').value,
+                name: document.getElementById('edit-contact-name').value,
+                email: document.getElementById('edit-contact-email').value,
+                company: document.getElementById('edit-contact-company').value
+            };
+            const error = validateForm(formData, {
+                name: { required: true },
+                email: { required: true, email: true }
+            });
+            if (error) {
+                alert(error);
+                return;
+            }
+            await fetch('edit_contact.php', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            document.getElementById('edit-message').textContent = 'Contact updated!';
+            setTimeout(() => window.location.href = 'contacts.html', 1000);
+        });
+    }
+
+    // Edit Business Form (Admin)
+    const editBusinessForm = document.getElementById('edit-business-form');
+    if (editBusinessForm && userRole === 'admin') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        if (id) {
+            const response = await fetch(`businesses.php?id=${id}`);
+            const business = await response.json();
+            document.getElementById('business-id').value = business.id;
+            document.getElementById('edit-business-name').value = business.name;
+            document.getElementById('edit-business-industry').value = business.industry;
+            document.getElementById('edit-business-email').value = business.email;
+            document.getElementById('edit-business-phone').value = business.phone;
+        }
+
+        editBusinessForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                id: document.getElementById('business-id').value,
+                name: document.getElementById('edit-business-name').value,
+                industry: document.getElementById('edit-business-industry').value,
+                email: document.getElementById('edit-business-email').value,
+                phone: document.getElementById('edit-business-phone').value
+            };
+            const error = validateForm(formData, {
+                name: { required: true },
+                industry: { required: true },
+                email: { required: true, email: true }
+            });
+            if (error) {
+                alert(error);
+                return;
+            }
+            await fetch('edit_business.php', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            document.getElementById('edit-message').textContent = 'Business updated!';
+            setTimeout(() => window.location.href = 'manage-businesses.html', 1000);
+        });
+    }
+
+    // Edit User Form (Admin)
+    const editUserForm = document.getElementById('edit-user-form');
+    if (editUserForm && userRole === 'admin') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        if (id) {
+            const response = await fetch(`users.php?id=${id}`);
+            const user = await response.json();
+            document.getElementById('user-id').value = user.id;
+            document.getElementById('edit-user-username').value = user.username;
+            document.getElementById('edit-user-email').value = user.email;
+            document.getElementById('edit-user-role').value = user.role;
+        }
+
+        editUserForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                id: document.getElementById('user-id').value,
+                username: document.getElementById('edit-user-username').value,
+                email: document.getElementById('edit-user-email').value,
+                role: document.getElementById('edit-user-role').value
+            };
+            const error = validateForm(formData, {
+                username: { required: true, minLength: 3 },
+                email: { required: true, email: true }
+            });
+            if (error) {
+                alert(error);
+                return;
+            }
+            await fetch('edit_user.php', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            document.getElementById('edit-message').textContent = 'User updated!';
+            setTimeout(() => window.location.href = 'user-management.html', 1000);
+        });
     }
 
     // Settings
