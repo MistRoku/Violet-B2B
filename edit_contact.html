@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioletCRM - Edit Contact</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="edit-container">
+        <section id="edit-contact">
+            <h2>Edit Contact</h2>
+            <form id="edit-contact-form">
+                <input type="hidden" id="contact-id">
+                <label for="edit-contact-name">Name:</label>
+                <input type="text" id="edit-contact-name" required>
+                <label for="edit-contact-email">Email:</label>
+                <input type="email" id="edit-contact-email" required>
+                <label for="edit-contact-company">Company:</label>
+                <input type="text" id="edit-contact-company" required>
+                <button type="submit">Update Contact</button>
+            </form>
+            <p id="edit-message"></p>
+            <a href="contacts.html">Back to Contacts</a>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
