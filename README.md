@@ -120,7 +120,7 @@ Contact
 
 For questions, support, or bug reports:
 
-    Email: [your-email@example.com]
+    Email: thabangmokgonyana@gmail.com
     GitHub Issues: Open an issue in the repository.
 
 Note: VioletCRM is designed for demo and production use. For live deployment, ensure HTTPS, regular backups, and input sanitization. Test all features in a development environment first. Thank you for using VioletCRM!
