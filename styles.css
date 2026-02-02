@@ -479,10 +479,45 @@ footer {
 }
 
 /* Responsive for edit pages */
-@media (max-width: 480px) {
-    .edit-container section {
-        width: 90%;
-        padding: 16px;
-    }
+aside {
+    width: 250px;
+    background-color: var(--secondary-color);
+    padding: 16px;
+    position: fixed;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    top: 80px;
 }
 
+aside nav ul {
+    flex-direction: column;
+    gap: 8px;
+}
+
+aside nav ul li a {
+    color: white;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    aside {
+        width: 100%;
+        position: static;
+        height: auto;
+        top: 0;
+        display: none; /* Hidden by default on mobile */
+    }
+
+    aside.open {
+        display: block; /* Show when open */
+    }
+
+    main {
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    footer {
+        margin-left: 0;
+    }
+}
