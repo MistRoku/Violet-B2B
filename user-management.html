@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioletCRM - User Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>VioletCRM</h1>
+        </div>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="admin-dashboard.html">Dashboard</a></li>
+                <li><a href="manage-businesses.html">Manage Businesses</a></li>
+                <li><a href="user-management.html" aria-current="page">User Management</a></li>
+                <li><a href="leads.html">Leads</a></li>
+                <li><a href="contacts.html">Contacts</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+        <button id="menu-toggle" aria-label="Toggle menu">☰</button>
+        <div class="user-menu">
+            <button id="user-toggle">Admin Profile</button>
+            <div id="user-dropdown" class="hidden">
+                <a href="#" id="logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <aside id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="admin-dashboard.html">Dashboard</a></li>
+                <li><a href="manage-businesses.html">Manage Businesses</a></li>
+                <li><a href="user-management.html" aria-current="page">User Management</a></li>
+                <li><a href="leads.html">Leads</a></li>
+                <li><a href="contacts.html">Contacts</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section id="user-management">
+            <h2>User Management</h2>
+            <form id="user-form">
+                <input type="text" id="user-username" placeholder="Username" required>
+                <input type="email" id="user-email" placeholder="Email" required>
+                <select id="user-role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <input type="password" id="user-password" placeholder="Password" required>
+                <button type="submit">Add User</button>
+            </form>
+            <input type="text" id="user-search" placeholder="Search users...">
+            <ul id="user-list"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 VioletCRM. Built for scalability across companies.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
