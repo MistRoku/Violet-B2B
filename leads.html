@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioletCRM - Leads</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>VioletCRM</h1>
+        </div>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="leads.html" aria-current="page">Leads</a></li>
+                <li><a href="contacts.html">Contacts</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+        <button id="menu-toggle" aria-label="Toggle menu">☰</button>
+        <div class="user-menu">
+            <button id="user-toggle">User Profile</button>
+            <div id="user-dropdown" class="hidden">
+                <a href="#">Profile</a>
+                <a href="#">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <aside id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="leads.html" aria-current="page">Leads</a></li>
+                <li><a href="contacts.html">Contacts</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section id="leads">
+            <h2>Lead Management</h2>
+            <form id="lead-form">
+                <input type="text" id="lead-name" placeholder="Lead Name" required>
+                <input type="email" id="lead-email" placeholder="Lead Email" required>
+                <input type="text" id="lead-company" placeholder="Company" required>
+                <button type="submit">Add Lead</button>
+            </form>
+            <input type="text" id="lead-search" placeholder="Search leads...">
+            <ul id="lead-list"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 VioletCRM. Built for scalability across companies.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
