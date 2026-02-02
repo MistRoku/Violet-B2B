@@ -521,3 +521,105 @@ aside nav ul li a {
         margin-left: 0;
     }
 }
+
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    padding: 16px;
+}
+
+#register {
+    background-color: var(--secondary-color);
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    color: white;
+    width: 600px;
+    max-width: 90%;
+}
+
+#register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#register-form fieldset {
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 4px;
+}
+
+#register-form legend {
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+#register-form label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+#register-form input, #register-form select, #register-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#register-form button {
+    padding: 12px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#register-form button:hover {
+    background-color: #3a0066;
+}
+
+.help-text {
+    font-size: 12px;
+    color: #ccc;
+    margin-top: 4px;
+}
+
+.register-links {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.register-links a {
+    display: inline-block;
+    margin: 0 8px;
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.register-links a:hover {
+    text-decoration: underline;
+}
+
+#register-message {
+    color: #ffcccc;
+    text-align: center;
+    margin-top: 16px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    #register {
+        padding: 16px;
+    }
+    #register-form fieldset {
+        padding: 12px;
+    }
+}
