@@ -1,46 +1,58 @@
-VioletCRM is a scalable, web-based Business-to-Business (B2B) Customer Relationship Management (CRM) system designed to help companies manage leads, contacts, business profiles, and user interactions. Built with semantic HTML, CSS, and JavaScript, it features role-based authentication (users and admins), real-time updates, form validation, search/filter functionality, and simulated API integrations. The system uses a violet/black/indigo color theme for a professional, modern look and is fully responsive across devices.
+VioletCRM
+Description
 
-This is a frontend-only demo using localStorage for data persistence. For production use, integrate a backend (e.g., Node.js with Express and MongoDB) to replace simulated features like API calls and authentication.
+VioletCRM is a comprehensive, scalable Business-to-Business (B2B) Customer Relationship Management (CRM) system designed to streamline interactions between businesses. Built with a modern stack including HTML, CSS, JavaScript, PHP, and MySQL, it offers role-based authentication, full CRUD operations for leads, contacts, businesses, and users, real-time data updates, form validation, search/filtering, notifications, and password reset functionality. The system features a professional violet/black/indigo color theme and is fully responsive across all devices.
+
+This is a production-ready application with secure backend integration, where data persists in a MySQL database and user sessions manage authentication.
 Features
 
-    Authentication: Simulated JWT-based login for users and admins. Role-based access control (admins can manage users and businesses; users have limited access).
-    Dashboard: Overview stats for leads, deals, revenue, businesses, and users (with real-time updates via polling).
-    Lead Management: Add, view, edit, delete, and search leads.
-    Contact Management: Similar CRUD operations for contacts.
-    Business Profile Management (Admin Only): Create, edit, delete, and search business profiles.
-    User Management (Admin Only): Add, edit, delete users with roles.
-    Analytics: Placeholder for charts (integrate Chart.js for bar/pie charts).
-    Settings: Theme switching (light/dark modes).
-    Notifications: Mocked email/SMS alerts for actions like adding leads (logs to console; integrate services like SendGrid/Twilio in production).
-    Real-Time Updates: Simulated WebSocket polling for data refreshes.
-    Form Validation: Basic client-side validation for required fields, email formats, and minimum lengths.
-    Search/Filter: Dynamic filtering for lists (leads, contacts, businesses, users).
-    Responsive Design: Works on desktop, tablet, and mobile with pixel-based sizing.
-    Scalability: Modular code for easy expansion (e.g., add new pages or integrate APIs).
+    Authentication & Authorization: Secure login/logout with PHP sessions. Role-based access (users vs. admins). Password reset via email.
+    Dashboards: Real-time stats for leads, contacts, businesses, users, active deals, and revenue forecasts.
+    Lead & Contact Management: Create, read, update, delete (CRUD), and search leads and contacts.
+    Business Profile Management (Admin Only): Manage business profiles with full CRUD and search.
+    User Management (Admin Only): Add, edit, delete users with role assignment.
+    Analytics: Placeholder for data visualizations (integrate Chart.js for charts).
+    Settings: Switch between light and dark themes.
+    Notifications: Automated email/SMS alerts for key actions (e.g., new lead added). Integrates with PHPMailer for emails.
+    Real-Time Updates: Polls server every 10 seconds for live data refreshes.
+    Form Validation: Client-side checks for required fields, email formats, and minimum lengths.
+    Search & Filter: Dynamic, real-time filtering for all data lists.
+    Responsive Design: Optimized for desktop, tablet, and mobile devices.
+    Scalability: Modular architecture for easy expansion (e.g., add new modules, integrate APIs, or enhance security).
 
 Installation
 
-    Clone or Download: Download all files (index.html, leads.html, contacts.html, analytics.html, settings.html, login.html, admin-dashboard.html, manage-businesses.html, user-management.html, styles.css, script.js) into a single directory.
-    Open in Browser: Open login.html in any modern web browser (Chrome, Firefox, etc.). No server required for the demo.
-    Production Setup (Optional):
-        Set up a backend server (e.g., Node.js with Express).
-        Replace localStorage with a database (e.g., MongoDB).
-        Install dependencies for real features: npm install jsonwebtoken socket.io nodemailer twilio chart.js.
-        Update script.js to use actual API endpoints instead of simulated calls.
+    Prerequisites:
+        Install XAMPP, WAMP, or a similar stack with PHP 7+ and MySQL.
+        Ensure Apache and MySQL services are running.
+
+    Database Setup:
+        Access phpMyAdmin at http://localhost/phpmyadmin.
+        Create a new database named violetcrm.
+        Import the provided violetcrm.sql file to set up tables and insert a default admin user (username: admin, password: admin123 – change in production).
+
+    Project Deployment:
+        Place all project files in your web server's root directory (e.g., C:\xampp\htdocs\violetcrm\ on Windows).
+        Update database credentials in config.php (default: host=localhost, user=root, password=``, database=violetcrm).
+        For email notifications, install PHPMailer via Composer: composer require phpmailer/phpmailer. Configure SMTP settings in send_notification.php (e.g., Gmail or your provider).
+
+    Launch:
+        Open your browser and navigate to http://localhost/violetcrm/login.html.
+        Log in with the default admin credentials or create new users.
 
 Usage
 
-    Login: Start at login.html. Enter any username/password (demo validation: password must be ≥6 characters). Select "User" or "Admin" role.
-        Users: Access index.html (dashboard, leads, contacts, analytics, settings).
-        Admins: Access all pages, including admin-dashboard.html, manage-businesses.html, and user-management.html.
-    Navigation: Use the header nav or sidebar. Mobile users can toggle the menu.
-    Managing Data:
-        Add items via forms (e.g., leads on leads.html).
-        Search/filter lists in real-time.
-        Edit by clicking "Edit" (populates form); delete with "Delete".
-    Real-Time Features: Data updates every 10 seconds. Notifications appear on dashboards.
-    Logout: Click "Admin Profile" or "User Profile" > "Logout" to clear session.
-    Themes: Switch in Settings (affects colors dynamically).
+    Login: On login.html, enter your username, password, and select your role (user or admin). Forgot password? Use forgot_password.html.
+    Navigation: Use the header navigation or collapsible sidebar. On mobile, tap the menu icon to expand.
+    Data Management:
+        Add: Fill forms on relevant pages (e.g., leads.html for leads).
+        Edit: Click "Edit" on any list item to modify details.
+        Delete: Click "Delete" to remove items (with confirmation).
+        Search: Type in search boxes to filter lists instantly.
+    Admin Privileges: Admins can access admin-dashboard.html to manage businesses and users.
+    Themes: Adjust in settings.html for light or dark mode.
+    Notifications: Check the dashboard for alerts; emails are sent for major actions.
+    Logout: Click the user dropdown and select "Logout".
 
 File Structure
 
@@ -54,31 +66,62 @@ VioletCRM/
 ├── admin-dashboard.html    # Admin Dashboard
 ├── manage-businesses.html  # Business Management (Admin)
 ├── user-management.html    # User Management (Admin)
-├── styles.css              # Shared CSS (responsive, themed)
-└── script.js               # Shared JavaScript (auth, CRUD, real-time)
+├── edit_lead.html          # Edit Lead Page
+├── edit_contact.html       # Edit Contact Page
+├── edit_business.html      # Edit Business Page (Admin)
+├── edit_user.html          # Edit User Page (Admin)
+├── forgot_password.html    # Forgot Password Page
+├── reset_password.html     # Reset Password Page
+├── styles.css              # Shared CSS Stylesheet
+├── script.js               # Shared JavaScript File
+├── violetcrm.sql           # Database Schema and Initial Data
+├── config.php              # Database Configuration
+├── login.php               # Login API
+├── register.php            # User Registration API
+├── leads.php               # Leads CRUD API
+├── contacts.php            # Contacts CRUD API
+├── businesses.php          # Businesses CRUD API
+├── users.php               # Users CRUD API
+├── edit_lead.php           # Edit Lead API
+├── edit_contact.php        # Edit Contact API
+├── edit_business.php       # Edit Business API
+├── edit_user.php           # Edit User API
+├── forgot_password.php     # Password Reset Request API
+├── reset_password.php      # Password Reset API
+├── send_notification.php   # Notification API
+├── check_session.php       # Session Check API
+├── logout.php              # Logout API
+├── dashboard_stats.php     # Dashboard Stats API
+└── error_log.php           # Error Logging Utility
 
-Technologies
+Technologies Used
 
-    HTML5: Semantic structure for accessibility.
-    CSS3: Responsive design with CSS variables for theming, pixel-based sizing.
-    JavaScript (ES6+): DOM manipulation, event handling, localStorage, simulated APIs.
-    Simulated Integrations: JWT (localStorage), WebSockets (polling), Email/SMS (console logs), Charts (Canvas API).
-    Browser Compatibility: Modern browsers with ES6 support.
+    Frontend: HTML5 (semantic structure), CSS3 (responsive design with CSS variables), JavaScript (ES6+ for interactivity).
+    Backend: PHP 7+ (server-side logic), MySQL (database).
+    Libraries: PHPMailer (email notifications), Chart.js (analytics charts, optional).
+    Security: PDO for database queries, bcrypt password hashing, session management.
+    Tools: XAMPP/WAMP for local development.
 
 Contributing
 
+We welcome contributions to improve VioletCRM!
+
     Fork the repository.
-    Create a feature branch (git checkout -b feature/new-feature).
-    Make changes and test in a browser.
-    Commit changes (git commit -m "Add new feature").
-    Push to branch and create a pull request.
-    For production enhancements, integrate a backend and add tests (e.g., Jest for JS).
+    Create a new branch for your feature (git checkout -b feature/your-feature-name).
+    Make your changes and test thoroughly.
+    Commit your updates (git commit -m "Describe your changes").
+    Push to your branch and submit a pull request.
+    Ensure code follows best practices for security and performance.
 
 License
 
-This project is open-source under the MIT License. Feel free to use, modify, and distribute.
+This project is licensed under the MIT License. You are free to use, modify, and distribute the code, provided you include the original license.
 Contact
 
-For questions or support, contact the developer at [your-email@example.com] or open an issue in the repository.
+For questions, support, or bug reports:
 
-Note: This is a demo system. Data is stored locally and will reset on browser clear. For a full application, deploy with a secure backend and database. Enjoy using VioletCRM!
+    Email: [your-email@example.com]
+    GitHub Issues: Open an issue in the repository.
+
+Note: VioletCRM is designed for demo and production use. For live deployment, ensure HTTPS, regular backups, and input sanitization. Test all features in a development environment first. Thank you for using VioletCRM!
+
